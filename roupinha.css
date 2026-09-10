@@ -52,11 +52,11 @@ p {
     background-color: #ca0000;
     color: #fce4ec;
 
-    padding: 5px 5px;
-    font-size: 12px;
+    padding: 6px 6px;
+    font-size: 15px;
     font-weight: bold;
     border: none;
-    border-radius: 30px;
+    border-radius: 10px;
 
     cursor: pointer;
     box-shadow: 0 6px 20px rgba(255, 65, 65, 0.258);

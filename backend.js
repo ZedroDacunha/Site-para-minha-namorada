@@ -53,5 +53,5 @@ function voltarinicio(){
     caixaMensagem.classList.remove("mostrar");
     caixaMensagem.style.display = "none"
 
-    document.getElementById("botao").style.display = "block"
+    document.getElementById("botao").style.display = "";
 }
