@@ -1,0 +1,84 @@
+body{
+    /* Um degradê suave e escuro*/
+    background: linear-gradient(135deg, #040404, #440000);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+
+#mensagemTempo {
+    display: none;
+    opacity: 0;
+    transform: scale(0.8); /* Começa um pouco menor */
+    transition: all 0.5s ease; /* Tempo que a animação leva para acontecer (0.5 segundos) */
+}
+
+/* Quando adicionarmos a classe 'mostrar', ela ganha vida e anima suavemente */
+#mensagemTempo.mostrar {
+    display: block;
+    opacity: 1;
+    transform: scale(1); /* Volta ao tamanho normal */
+}
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 45px;
+    font-weight: bold;
+    color: #ca0000; /* Um tom de rosa/vermelho vibrante e moderno */
+    text-shadow: 0 2px 10px rgba(226, 0, 0, 0.137);
+    margin-bottom: 10px;
+}
+
+p {
+    color: #fce4ec;
+    font-size: 18px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+#tempo {
+    color: #f10000;
+    font-size: 26px;
+    font-weight: bold;
+    margin-top: 20px;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px rgba(213, 0, 0, 0.123);
+}
+
+#botaovoltar{
+    background-color: #ca0000;
+    color: #fce4ec;
+
+    padding: 5px 5px;
+    font-size: 12px;
+    font-weight: bold;
+    border: none;
+}
+
+#botao {
+    /* Cores e Gradiente */
+    background: linear-gradient(135deg, #da0000, #870000);
+    color: white;
+    
+    /* Tamanho e Forma */
+    padding: 18px 35px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px; /* Deixa o botão bem arredondado (estilo pílula moderna) */
+    
+    /* Efeitos e Cursor */
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255, 65, 65, 0.258);
+    
+    /* Animação suave */
+    transition: all 0.3s ease;
+}
+#botao:hover {
+    background: linear-gradient(135deg, #ff2b2b, #ff003c);
+    transform: scale(1.08);
+    box-shadow: 0 8px 25px rgba(255, 65, 108, 0.6);
+}
