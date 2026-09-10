@@ -51,7 +51,7 @@ function iniciarSurpresa() {
 function voltarinicio(){
     const caixaMensagem = document.getElementById("mensagemTempo");
     caixaMensagem.classList.remove("mostrar");
-    caixaMensagem.style.display = none
+    caixaMensagem.style.display = "none"
 
     document.getElementById("botao").style.display = "block"
 }
