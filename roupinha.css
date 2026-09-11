@@ -58,12 +58,21 @@ h2 {
     margin-top: 10px;
 }
 
-img{
-    width: 500px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 15px;
-    margin: 20px;
+img {
+    width: 300px;  /* Deixa a foto menos larga */
+    height: 300px; /* Iguala a altura para criar um quadrado perfeito */
+    object-fit: cover; /* Continua preenchendo o espaço sem distorcer */
+    border-radius: 10px;
+    margin: 15px;
+    
+    /* Adicionei uma sombra leve para dar um destaque bonito nas fotos */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+    transition: transform 0.3s ease; /* Prepara para um efeito de passar o mouse */
+}
+
+/* Efeito extra: as fotos dão um zoom suave quando passar o mouse por cima */
+img:hover {
+    transform: scale(1.05);
 }
 
 p {
