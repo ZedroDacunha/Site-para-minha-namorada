@@ -58,12 +58,19 @@ h2 {
     margin-top: 10px;
 }
 
-img{
-    width: 500px;
-    height: 200px;
+img {
+    width: 100%;
+    max-width: 280px;
+    height: 280px;
     object-fit: cover;
-    border-radius: 15px;
-    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+/* Efeito extra: as fotos dão um zoom suave quando passar o mouse por cima */
+img:hover {
+    transform: scale(1.05);
 }
 
 p {
@@ -126,4 +133,13 @@ p {
     background: linear-gradient(135deg, #ff2b2b, #ff003c);
     transform: scale(1.08);
     box-shadow: 0 8px 25px rgba(255, 65, 108, 0.6);
+}
+
+ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    gap: 15px;
 }
