@@ -1,6 +1,7 @@
 // Defina a data exata do início do namoro: (Ano, Mês, Dia, Hora, Minuto, Segundo)
 // ATENÇÃO: No JavaScript, os meses começam em 0! Janeiro é 0, Fevereiro é 1... e Novembro é 10.
 const dataInicio = new Date(2021, 10, 12, 15, 40, 10);
+let intervaloRelogio;
 
 function atualizarTempo() {
     const agora = new Date();
@@ -46,7 +47,7 @@ function iniciarSurpresa() {
     
     // 4. Atualiza e inicia o relógio
     atualizarTempo();
-    setInterval(atualizarTempo, 1000);
+    intervaloRelogio = setInterval(atualizarTempo, 1000);
 }
 function voltarinicio(){
     const caixaMensagem = document.getElementById("mensagemTempo");
@@ -54,4 +55,5 @@ function voltarinicio(){
     caixaMensagem.style.display = "none"
 
     document.getElementById("botao").style.display = "";
+    clearInterval(intervaloRelogio);
 }
