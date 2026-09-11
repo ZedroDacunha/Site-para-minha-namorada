@@ -7,9 +7,14 @@ class Personagem:
     # TODO: Implemente atacar(self, outro_personagem) aqui
 # ---- CÓDIGO DE TESTE ---
     def atacar(self, outro_personagem):
+        dano = forca/2
+        
         if outro_personagem.defesa >= self.forca:
             print(f"{self.nome} atacou {outro_personagem.nome}, mas não causou dano.")
-        if outro_personagem.vida <= 0:
+        elif outro_personagem.defesa < self.forca:
+            print(f"{self.nome} acertou o ataque, {outro_personagem.nome} perdeu {dano} PV")
+            outro_personagem.vida = outro_personagem.vida - dano
+        elif outro_personagem.vida <= 0:
             print(f"{inimigo.nome} já está morto. Não é possível atacá-lo.")
             return
 
