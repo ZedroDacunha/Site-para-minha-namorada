@@ -1,11 +1,9 @@
-body{
-    /* Um degradê suave e escuro*/
+body {
+    /* Um degradê suave e escuro */
     background: linear-gradient(135deg, #040404, #440000);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    
+    /* TROCAMOS height por min-height para a página poder crescer para baixo */
+    min-height: 100vh;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
@@ -16,21 +14,24 @@ html {
 }
 
 .tela {
-    min-height: 100vh; 
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start; /* Joga o conteúdo a partir do topo, em vez de travar no centro */
     align-items: center;
-    padding: 20px;
+    padding: 80px 20px; /* Dá uma margem bonita em cima e embaixo */
     box-sizing: border-box;
     text-align: center;
 }
-
 #mensagemTempo {
     display: none;
     opacity: 0;
-    transform: scale(0.8); /* Começa um pouco menor */
-    transition: all 0.5s ease; /* Tempo que a animação leva para acontecer (0.5 segundos) */
+    transition: opacity 0.3s ease;
+    margin-top: 20px; /* Dá um respiro em relação ao botão anterior */
+}
+#textoPrincipal {
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 /* Quando adicionarmos a classe 'mostrar', ela ganha vida e anima suavemente */
