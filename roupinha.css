@@ -11,6 +11,21 @@ body{
     text-align: center;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+.tela {
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
 #mensagemTempo {
     display: none;
     opacity: 0;
