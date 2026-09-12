@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Para Tais Gabrieli meu amor!!</title>
+    <meta name="description" content="Um cantinho nosso: quanto tempo estamos juntos, nossos momentos e as músicas que marcaram a gente.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Para Tais Gabrieli, meu amor ❤">
+    <meta property="og:description" content="Um cantinho nosso: quanto tempo estamos juntos, nossos momentos e as músicas que marcaram a gente.">
+    <meta property="og:image" content="Fotos site/20231004_180800.jpg">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text x=%220%22 y=%2214%22 font-size=%2214%22>%E2%9D%A4%EF%B8%8F</text></svg>">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta name="theme-color" content="#ca0000">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="roupinha.css">
 </head>
 <body>
@@ -40,35 +47,36 @@
     <section id="galeria" class="tela reveal">
         <div>
             <h1>Alguns momentos nossos juntos</h1>
+            <button id="botaoSlideshow" class="botao-slideshow" type="button">▶ Modo apresentação</button>
             <div>
                 <ul>
                     <li>
                         <figure class="foto-item">
-                            <img src="Fotos site/20231004_180800.jpg" alt="Nossa primeira foto juntos" tabindex="0">
+                            <img src="Fotos site/20231004_180800.jpg" alt="Nossa primeira foto juntos" tabindex="0" loading="lazy">
                             <figcaption>Nossa primeira foto juntos</figcaption>
                         </figure>
                     </li>
                     <li>
                         <figure class="foto-item">
-                            <img src="Fotos site/IMG-20230629-WA0033.jpg" alt="Uma das minhas fotos favoritas" tabindex="0">
+                            <img src="Fotos site/IMG-20230629-WA0033.jpg" alt="Uma das minhas fotos favoritas" tabindex="0" loading="lazy">
                             <figcaption>Uma das minhas fotos favoritas</figcaption>
                         </figure>
                     </li>
                     <li>
                         <figure class="foto-item">
-                            <img src="Fotos site/IMG-20250831-WA0012.jpg" alt="Nossa foto no Centenário da Igreja" tabindex="0">
+                            <img src="Fotos site/IMG-20250831-WA0012.jpg" alt="Nossa foto no Centenário da Igreja" tabindex="0" loading="lazy">
                             <figcaption>Nossa foto no Centenário da Igreja</figcaption>
                         </figure>
                     </li>
                     <li>
                         <figure class="foto-item">
-                            <img src="Fotos site/IMG-20251019-WA0202.jpg" alt="Nossa foto do nosso piquenique" tabindex="0">
+                            <img src="Fotos site/IMG-20251019-WA0202.jpg" alt="Nossa foto do nosso piquenique" tabindex="0" loading="lazy">
                             <figcaption>Foto do nosso piquenique</figcaption>
                         </figure>
                     </li>
                     <li>
                         <figure class="foto-item">
-                            <img src="Fotos site/IMG-20260704-WA0012.jpeg" alt="Nossa foto juntos assistindo o Paraguai" tabindex="0">
+                            <img src="Fotos site/IMG-20260704-WA0012.jpeg" alt="Nossa foto juntos assistindo o Paraguai" tabindex="0" loading="lazy">
                             <figcaption>Nossa foto juntos assistindo o Paraguai</figcaption>
                         </figure>
                     </li>
@@ -85,13 +93,16 @@
     </section>
 
     <footer class="rodape">
-        feito com amor, para Tais Gabrieli ❤
+        feito com amor, para <span class="nome-cursivo">Tais Gabrieli</span> ❤
+        <br>
+        <button id="botaoCompartilhar" class="botao-compartilhar" type="button">Copiar link do site</button>
     </footer>
 
     <button id="botaoTopo" class="botao-topo" aria-label="Voltar ao topo">↑</button>
 
     <div id="lightbox" class="lightbox">
         <button class="lightbox-fechar" aria-label="Fechar">×</button>
+        <button id="lightbox-pausar" class="lightbox-pausar" type="button" hidden>❚❚ Pausar</button>
         <figure>
             <img id="lightbox-img" src="" alt="">
             <figcaption id="lightbox-legenda"></figcaption>
