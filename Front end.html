@@ -3,43 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <title>Para Tais Gabrieli meu amor!!</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text x=%220%22 y=%2214%22 font-size=%2214%22>%E2%9D%A4%EF%B8%8F</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="roupinha.css">
 </head>
 <body>
-    <section id="inicio" class="tela">
+    <section id="inicio" class="tela reveal">
+        <div class="particulas" aria-hidden="true">
+            <span class="coracao" style="--left:10%; --delay:0s; --duration:14s; --tamanho:14px;">❤</span>
+            <span class="coracao" style="--left:22%; --delay:3s; --duration:18s; --tamanho:10px;">❤</span>
+            <span class="coracao" style="--left:35%; --delay:6s; --duration:16s; --tamanho:16px;">❤</span>
+            <span class="coracao" style="--left:48%; --delay:1s; --duration:20s; --tamanho:12px;">❤</span>
+            <span class="coracao" style="--left:60%; --delay:8s; --duration:15s; --tamanho:18px;">❤</span>
+            <span class="coracao" style="--left:72%; --delay:4s; --duration:19s; --tamanho:11px;">❤</span>
+            <span class="coracao" style="--left:85%; --delay:10s; --duration:17s; --tamanho:14px;">❤</span>
+            <span class="coracao" style="--left:93%; --delay:2s; --duration:21s; --tamanho:9px;">❤</span>
+        </div>
         <div id="textoPrincipal">
             <h1>Contador de tempo juntos</h1>
             <p>Já parou pra pensar em <strong>quanto tempo estamos juntos??</strong></p>
             <div>
                 <button id="botao" onclick="iniciarSurpresa()">Clique aqui para calcular!!</button>
-                <div id="mensagemTempo"> 
-                    <h2><strong>Tempo em que estamos juntos:</strong></h2> 
+                <div id="mensagemTempo">
+                    <h2><strong>Tempo em que estamos juntos:</strong></h2>
                     <div id="tempo"></div>
                     <button id="botaovoltar" onclick="voltarinicio()">Voltar</button>
                 </div>
             </div>
         </div>
+        <a href="#galeria" class="seta-rolar" aria-label="Rolar para ver mais">⌄</a>
     </section>
 
-    <section class="tela">
+    <div class="divisor" aria-hidden="true">❤</div>
+
+    <section id="galeria" class="tela reveal">
         <div>
             <h1>Alguns momentos nossos juntos</h1>
             <div>
                 <ul>
-                    <li><img src="Fotos site/20231004_180800.jpg" alt="Nossa primeira foto juntos"></li>
-                    <li><img src="Fotos site/IMG-20230629-WA0033.jpg" alt="Uma das minhas fotos favoritas"></li>
-                    <li><img src="Fotos site/IMG-20250831-WA0012.jpg" alt="Foto 3"></li>
-                    <li><img src="Fotos site/IMG-20251019-WA0202.jpg" alt="Foto 4"></li>
-                    <li><img src="Fotos site/IMG-20260704-WA0012.jpeg" alt="Foto 5"></li>
+                    <li>
+                        <figure class="foto-item">
+                            <img src="Fotos site/20231004_180800.jpg" alt="Nossa primeira foto juntos" tabindex="0">
+                            <figcaption>Nossa primeira foto juntos</figcaption>
+                        </figure>
+                    </li>
+                    <li>
+                        <figure class="foto-item">
+                            <img src="Fotos site/IMG-20230629-WA0033.jpg" alt="Uma das minhas fotos favoritas" tabindex="0">
+                            <figcaption>Uma das minhas fotos favoritas</figcaption>
+                        </figure>
+                    </li>
+                    <li>
+                        <figure class="foto-item">
+                            <img src="Fotos site/IMG-20250831-WA0012.jpg" alt="Nossa foto no Centenário da Igreja" tabindex="0">
+                            <figcaption>Nossa foto no Centenário da Igreja</figcaption>
+                        </figure>
+                    </li>
+                    <li>
+                        <figure class="foto-item">
+                            <img src="Fotos site/IMG-20251019-WA0202.jpg" alt="Nossa foto do nosso piquenique" tabindex="0">
+                            <figcaption>Foto do nosso piquenique</figcaption>
+                        </figure>
+                    </li>
+                    <li>
+                        <figure class="foto-item">
+                            <img src="Fotos site/IMG-20260704-WA0012.jpeg" alt="Nossa foto juntos assistindo o Paraguai" tabindex="0">
+                            <figcaption>Nossa foto juntos assistindo o Paraguai</figcaption>
+                        </figure>
+                    </li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <section class="tela">
+    <div class="divisor" aria-hidden="true">❤</div>
+
+    <section class="tela reveal">
         <h1>Nossa músicas</h1>
         <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1vdbWCFJvynYsVvdJgWyfi?utm_source=generator&theme=0&si=aeb3f743b91643b9" width="50%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </section>
+
+    <footer class="rodape">
+        feito com amor, para Tais Gabrieli ❤
+    </footer>
+
+    <button id="botaoTopo" class="botao-topo" aria-label="Voltar ao topo">↑</button>
+
+    <div id="lightbox" class="lightbox">
+        <button class="lightbox-fechar" aria-label="Fechar">×</button>
+        <figure>
+            <img id="lightbox-img" src="" alt="">
+            <figcaption id="lightbox-legenda"></figcaption>
+        </figure>
+    </div>
 
     <script src="backend.js"></script>
 </body>

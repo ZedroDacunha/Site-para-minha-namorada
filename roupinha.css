@@ -1,22 +1,58 @@
+/* ============================================
+   VARIÁVEIS — mesma paleta original (vermelho
+   sobre preto), só organizada em variáveis pra
+   facilitar manutenção.
+   ============================================ */
 :root {
-    --bg-profundo: #0d0403;
-    --bg-vinho: #3a0a0f;
-    --garnet: #a8102e;
-    --garnet-claro: #d81e46;
-    --dourado: #d4a373;
-    --dourado-suave: #e8c9a0;
-    --texto-blush: #f3e4e0;
-    --texto-creme: #faf6f2;
-    --sombra: rgba(0, 0, 0, 0.45);
+    --preto: #040404;
+    --vinho: #440000;
+    --vermelho: #ca0000;
+    --vermelho-escuro: #870000;
+    --vermelho-vivo: #da0000;
+    --vermelho-claro: #ff2b2b;
+    --vermelho-hover: #ff003c;
+    --vermelho-tempo: #f10000;
+    --texto-claro: #fce4ec;
+    --sombra: rgba(0, 0, 0, 0.3);
 }
 
-
+/* ============================================
+   BASE
+   ============================================ */
 body {
-    background: linear-gradient(160deg, var(--bg-profundo) 0%, var(--bg-vinho) 100%);
+    position: relative;
     min-height: 100vh;
     margin: 0;
-    font-family: 'Lora', 'Segoe UI', Tahoma, Geneva, Verdana, serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
+}
+
+/* O degradê de fundo vive num pseudo-elemento fixo,
+   separado do conteúdo — assim dá pra borrar só ele
+   quando passar o mouse numa foto, sem borrar o texto
+   e as fotos junto. */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(135deg, var(--preto), var(--vinho));
+    transition: filter 0.4s ease;
+}
+
+/* Vinheta preta fixa nas bordas da tela — mais escura
+   nos cantos, transparente no centro. */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    box-shadow: inset 0 0 150px 40px rgba(0, 0, 0, 0.75);
+}
+
+body:has(.foto-item:hover, .foto-item:focus-within)::before {
+    filter: blur(10px) brightness(0.8);
 }
 
 html {
@@ -33,7 +69,6 @@ html {
     }
 }
 
-
 .tela {
     min-height: 100vh;
     display: flex;
@@ -45,148 +80,437 @@ html {
     text-align: center;
 }
 
-.tela + .tela {
-    border-top: 1px solid rgba(212, 163, 115, 0.25);
-}
-
-
-#mensagemTempo {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    margin-top: 20px;
+#inicio {
+    position: relative;
+    overflow: hidden;
 }
 
 #textoPrincipal {
+    position: relative;
+    z-index: 1;
     margin-top: auto;
     margin-bottom: auto;
 }
 
-/* Quando adicionarmos a classe 'mostrar', ela ganha vida e anima suavemente */
-#mensagemTempo.mostrar {
-    display: block;
-    opacity: 1;
-    transform: scale(1); /* Volta ao tamanho normal */
+/* ============================================
+   PARTÍCULAS DE CORAÇÕES — só na primeira tela,
+   bem sutis, subindo devagar atrás do texto.
+   ============================================ */
+.particulas {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
 }
 
+.particulas .coracao {
+    position: absolute;
+    bottom: -40px;
+    left: var(--left);
+    font-size: var(--tamanho, 14px);
+    color: var(--vermelho);
+    opacity: 0;
+    animation: subir-coracao var(--duration, 16s) ease-in var(--delay, 0s) infinite;
+}
+
+@keyframes subir-coracao {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.35;
+    }
+    90% {
+        opacity: 0.15;
+    }
+    100% {
+        transform: translateY(-110vh) translateX(20px);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   REVELAÇÃO SUAVE DAS SEÇÕES AO ROLAR
+   ============================================ */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visivel {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================
+   SETA DE ROLAR
+   ============================================ */
+.seta-rolar {
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--vermelho);
+    font-size: 34px;
+    line-height: 1;
+    text-decoration: none;
+    animation: rolar-bounce 2s ease-in-out infinite;
+}
+
+.seta-rolar:hover,
+.seta-rolar:focus-visible {
+    color: var(--vermelho-claro);
+}
+
+@keyframes rolar-bounce {
+    0%, 100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, 10px); }
+}
+
+/* ============================================
+   DIVISOR DECORATIVO ENTRE SEÇÕES
+   ============================================ */
+.divisor {
+    position: relative;
+    z-index: 1;
+    color: var(--vermelho);
+    font-size: 22px;
+    opacity: 0.6;
+    margin: -20px 0;
+}
+
+/* ============================================
+   RODAPÉ
+   ============================================ */
+.rodape {
+    position: relative;
+    z-index: 1;
+    padding: 30px 20px 40px;
+    color: var(--texto-claro);
+    opacity: 0.7;
+    font-size: 14px;
+    font-family: 'Playfair Display', serif;
+}
+
+/* ============================================
+   BOTÃO VOLTAR AO TOPO
+   ============================================ */
+.botao-topo {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, var(--vermelho-vivo), var(--vermelho-escuro));
+    color: var(--texto-claro);
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255, 65, 65, 0.258);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
+    z-index: 50;
+}
+
+.botao-topo.visivel {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.botao-topo:hover {
+    background: linear-gradient(135deg, var(--vermelho-claro), var(--vermelho-hover));
+}
+
+.botao-topo:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+}
+
+/* ============================================
+   TIPOGRAFIA
+   ============================================ */
 h1 {
+    position: relative;
     font-family: 'Playfair Display', serif;
     font-size: 45px;
-    font-weight: 700;
-    color: var(--dourado-suave);
-    text-shadow: 0 2px 14px rgba(212, 163, 115, 0.25);
+    font-weight: bold;
+    color: var(--vermelho);
+    text-shadow: 0 2px 10px rgba(226, 0, 0, 0.137);
     margin-bottom: 10px;
-    letter-spacing: 0.3px;
+    padding-bottom: 22px;
+    transition: filter 0.4s ease;
+}
+
+h1::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 4px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--vermelho-vivo), var(--vermelho-claro));
+    box-shadow: 0 2px 10px rgba(255, 65, 65, 0.45);
 }
 
 h2 {
     font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 30px;
-    color: var(--texto-creme);
+    font-size: 35px;
+    font-weight: bold;
+    color: #f8f6f6;
+    text-shadow: 0 2px 10px rgba(255, 2, 2, 0.103);
     margin-bottom: 10px;
     margin-top: 10px;
+    transition: filter 0.4s ease;
 }
-
-img {
-    width: 100%;
-    max-width: 280px;
-    height: 280px;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 2px solid transparent;
-    box-shadow: 0 6px 20px var(--sombra);
-    transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-/* Efeito extra: as fotos dão um zoom suave quando passar o mouse por cima */
-img:hover,
-img:focus-visible {
-    transform: scale(1.04);
-    border-color: var(--dourado);
-}
-
-@media (max-width: 600px) {
-    img {
-        max-width: 45%;
-        height: auto;
-        aspect-ratio: 1 / 1;
-    }
-    h1 { font-size: 32px; }
-    h2 { font-size: 24px; }
-}
-
 
 p {
-    color: var(--texto-blush);
+    color: var(--texto-claro);
     font-size: 18px;
     line-height: 1.6;
     max-width: 60ch;
     margin-left: auto;
     margin-right: auto;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    transition: filter 0.4s ease;
+}
+
+/* ============================================
+   CONTADOR — números tabulares pra não "pular"
+   de largura a cada segundo.
+   ============================================ */
+#mensagemTempo {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    margin-top: 20px;
+}
+
+#mensagemTempo.mostrar {
+    display: block;
+    opacity: 1;
 }
 
 #tempo {
-    color: var(--dourado-suave);
-    font-family: 'Playfair Display', serif;
+    color: var(--vermelho-tempo);
     font-variant-numeric: tabular-nums;
-    font-size: 32px;
-    font-weight: 700;
-    margin-top: 14px;
-    margin-bottom: 22px;
-    letter-spacing: 0.5px;
-    text-shadow: 0 2px 20px rgba(212, 163, 115, 0.35);
+    font-size: 26px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px rgba(213, 0, 0, 0.123);
+    transition: filter 0.4s ease;
 }
 
-#botao,
-#botaovoltar {
-    background: linear-gradient(135deg, var(--garnet), #6e0a1f);
-    color: var(--texto-creme);
-    border: none;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(168, 16, 46, 0.35);
-    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-}
- 
-#botao:hover,
-#botaovoltar:hover {
-    background: linear-gradient(135deg, var(--garnet-claro), var(--garnet));
-    transform: scale(1.06);
-    box-shadow: 0 8px 24px rgba(216, 30, 70, 0.45);
-}
- 
-#botao:focus-visible,
-#botaovoltar:focus-visible {
-    outline: 2px solid var(--dourado);
-    outline-offset: 3px;
-}
- 
-#botao {
-    padding: 18px 35px;
-    font-size: 18px;
-    border-radius: 50px;
-}
- 
-#botaovoltar {
-    padding: 8px 20px;
-    font-size: 15px;
-    border-radius: 10px;
-    margin-top: 8px;
-}
- 
+/* ============================================
+   FOTOS — cada foto é uma <figure> com legenda
+   (figcaption) que desliza pra cima no hover.
+   ============================================ */
 ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     list-style: none;
     padding: 0;
-    gap: 18px;
+    gap: 15px;
 }
 
+ul li {
+    transition: filter 0.4s ease;
+}
+
+.foto-item {
+    position: relative;
+    margin: 0;
+    width: 280px;
+    max-width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.foto-item img {
+    display: block;
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    cursor: zoom-in;
+}
+
+.foto-item figcaption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 26px 12px 10px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+    color: var(--texto-claro);
+    font-size: 14px;
+    text-align: center;
+    text-shadow: none;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.foto-item:hover,
+.foto-item:focus-within {
+    position: relative;
+    z-index: 2;
+    transform: scale(1.05);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+}
+
+.foto-item:hover figcaption,
+.foto-item:focus-within figcaption {
+    transform: translateY(0);
+}
+
+/* Ao passar o mouse (ou focar) numa foto, tudo o resto
+   (fundo, textos, botões, playlist e as outras fotos)
+   borra, deixando só ela nítida em destaque. */
+body:has(.foto-item:hover, .foto-item:focus-within) h1,
+body:has(.foto-item:hover, .foto-item:focus-within) h2,
+body:has(.foto-item:hover, .foto-item:focus-within) p,
+body:has(.foto-item:hover, .foto-item:focus-within) iframe,
+body:has(.foto-item:hover, .foto-item:focus-within) #botao,
+body:has(.foto-item:hover, .foto-item:focus-within) #botaovoltar,
+body:has(.foto-item:hover, .foto-item:focus-within) #tempo {
+    filter: blur(6px);
+}
+
+body:has(.foto-item:hover, .foto-item:focus-within) ul li:not(:has(.foto-item:hover, .foto-item:focus-within)) {
+    filter: blur(6px);
+}
+
+@media (max-width: 600px) {
+    .foto-item,
+    .foto-item img {
+        width: 100%;
+        max-width: 45%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+    }
+    h1 { font-size: 32px; }
+    h2 { font-size: 26px; }
+}
+
+/* ============================================
+   LIGHTBOX — clicar numa foto abre em destaque
+   ============================================ */
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    background: rgba(4, 4, 4, 0.92);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.lightbox.aberto {
+    display: flex;
+}
+
+.lightbox figure {
+    margin: 0;
+    max-width: min(90vw, 700px);
+    text-align: center;
+}
+
+.lightbox img {
+    display: block;
+    width: 100%;
+    max-height: 75vh;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.lightbox figcaption {
+    margin-top: 16px;
+    color: var(--texto-claro);
+    font-size: 16px;
+}
+
+.lightbox-fechar {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: none;
+    border: none;
+    color: var(--texto-claro);
+    font-size: 34px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.lightbox-fechar:hover,
+.lightbox-fechar:focus-visible {
+    color: var(--vermelho-claro);
+}
+
+/* ============================================
+   BOTÕES — base compartilhada (mesmo visual dos
+   dois botões originais) + foco visível pra quem
+   navega pelo teclado.
+   ============================================ */
+#botao,
+#botaovoltar {
+    background: linear-gradient(135deg, var(--vermelho-vivo), var(--vermelho-escuro));
+    color: var(--texto-claro);
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255, 65, 65, 0.258);
+    transition: all 0.3s ease;
+}
+
+#botao:hover,
+#botaovoltar:hover {
+    background: linear-gradient(135deg, var(--vermelho-claro), var(--vermelho-hover));
+    transform: scale(1.08);
+    box-shadow: 0 8px 25px rgba(255, 65, 108, 0.6);
+}
+
+#botao:focus-visible,
+#botaovoltar:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+}
+
+#botao {
+    padding: 18px 35px;
+    font-size: 18px;
+    border-radius: 50px;
+}
+
+#botaovoltar {
+    background-color: var(--vermelho);
+    padding: 8px 20px;
+    font-size: 15px;
+    border-radius: 10px;
+    margin-top: 8px;
+}
+
+/* ============================================
+   PLAYLIST
+   ============================================ */
 iframe {
     width: 90%;
     max-width: 500px;
     border-radius: 12px;
+    transition: filter 0.4s ease;
 }
