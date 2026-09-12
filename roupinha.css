@@ -1,11 +1,21 @@
+:root {
+    --bg-profundo: #0d0403;
+    --bg-vinho: #3a0a0f;
+    --garnet: #a8102e;
+    --garnet-claro: #d81e46;
+    --dourado: #d4a373;
+    --dourado-suave: #e8c9a0;
+    --texto-blush: #f3e4e0;
+    --texto-creme: #faf6f2;
+    --sombra: rgba(0, 0, 0, 0.45);
+}
+
+
 body {
-    /* Um degradê suave e escuro */
-    background: linear-gradient(135deg, #040404, #440000);
-    
-    /* TROCAMOS height por min-height para a página poder crescer para baixo */
+    background: linear-gradient(160deg, var(--bg-profundo) 0%, var(--bg-vinho) 100%);
     min-height: 100vh;
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Lora', 'Segoe UI', Tahoma, Geneva, Verdana, serif;
     text-align: center;
 }
 
@@ -13,22 +23,40 @@ html {
     scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
+
+
 .tela {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Joga o conteúdo a partir do topo, em vez de travar no centro */
+    justify-content: flex-start;
     align-items: center;
-    padding: 80px 20px; /* Dá uma margem bonita em cima e embaixo */
+    padding: 80px 20px;
     box-sizing: border-box;
     text-align: center;
 }
+
+.tela + .tela {
+    border-top: 1px solid rgba(212, 163, 115, 0.25);
+}
+
+
 #mensagemTempo {
     display: none;
     opacity: 0;
-    transition: opacity 0.3s ease;
-    margin-top: 20px; /* Dá um respiro em relação ao botão anterior */
+    transition: opacity 0.4s ease;
+    margin-top: 20px;
 }
+
 #textoPrincipal {
     margin-top: auto;
     margin-bottom: auto;
@@ -40,20 +68,22 @@ html {
     opacity: 1;
     transform: scale(1); /* Volta ao tamanho normal */
 }
+
 h1 {
     font-family: 'Playfair Display', serif;
     font-size: 45px;
-    font-weight: bold;
-    color: #ca0000; /* Um tom de rosa/vermelho vibrante e moderno */
-    text-shadow: 0 2px 10px rgba(226, 0, 0, 0.137);
+    font-weight: 700;
+    color: var(--dourado-suave);
+    text-shadow: 0 2px 14px rgba(212, 163, 115, 0.25);
     margin-bottom: 10px;
+    letter-spacing: 0.3px;
 }
+
 h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 35px;
-    font-weight: bold;
-    color: #f8f6f6; /* Um tom de rosa/vermelho vibrante e moderno */
-    text-shadow: 0 2px 10px rgba(255, 2, 2, 0.103);
+    font-weight: 700;
+    font-size: 30px;
+    color: var(--texto-creme);
     margin-bottom: 10px;
     margin-top: 10px;
 }
@@ -63,83 +93,100 @@ img {
     max-width: 280px;
     height: 280px;
     object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    box-shadow: 0 6px 20px var(--sombra);
+    transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 /* Efeito extra: as fotos dão um zoom suave quando passar o mouse por cima */
-img:hover {
-    transform: scale(1.05);
+img:hover,
+img:focus-visible {
+    transform: scale(1.04);
+    border-color: var(--dourado);
 }
 
+@media (max-width: 600px) {
+    img {
+        max-width: 45%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+    }
+    h1 { font-size: 32px; }
+    h2 { font-size: 24px; }
+}
+
+
 p {
-    color: #fce4ec;
+    color: var(--texto-blush);
     font-size: 18px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    line-height: 1.6;
+    max-width: 60ch;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 #tempo {
-    color: #f10000;
-    font-size: 26px;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-    text-shadow: 0 2px 8px rgba(213, 0, 0, 0.123);
+    color: var(--dourado-suave);
+    font-family: 'Playfair Display', serif;
+    font-variant-numeric: tabular-nums;
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 14px;
+    margin-bottom: 22px;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 20px rgba(212, 163, 115, 0.35);
 }
 
-#botaovoltar{
-    background-color: #ca0000;
-    color: #fce4ec;
-
-    padding: 6px 6px;
-    font-size: 15px;
-    font-weight: bold;
+#botao,
+#botaovoltar {
+    background: linear-gradient(135deg, var(--garnet), #6e0a1f);
+    color: var(--texto-creme);
     border: none;
-    border-radius: 10px;
-
+    font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 6px 20px rgba(255, 65, 65, 0.258);
-
-    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(168, 16, 46, 0.35);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
+ 
+#botao:hover,
 #botaovoltar:hover {
-    background: linear-gradient(135deg, #ff2b2b, #ff003c);
-    transform: scale(1.08);
-    box-shadow: 0 8px 25px rgba(255, 65, 108, 0.6);
+    background: linear-gradient(135deg, var(--garnet-claro), var(--garnet));
+    transform: scale(1.06);
+    box-shadow: 0 8px 24px rgba(216, 30, 70, 0.45);
 }
-
+ 
+#botao:focus-visible,
+#botaovoltar:focus-visible {
+    outline: 2px solid var(--dourado);
+    outline-offset: 3px;
+}
+ 
 #botao {
-    /* Cores e Gradiente */
-    background: linear-gradient(135deg, #da0000, #870000);
-    color: white;
-    
-    /* Tamanho e Forma */
     padding: 18px 35px;
     font-size: 18px;
-    font-weight: bold;
-    border: none;
-    border-radius: 50px; /* Deixa o botão bem arredondado (estilo pílula moderna) */
-    
-    /* Efeitos e Cursor */
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(255, 65, 65, 0.258);
-    
-    /* Animação suave */
-    transition: all 0.3s ease;
+    border-radius: 50px;
 }
-#botao:hover {
-    background: linear-gradient(135deg, #ff2b2b, #ff003c);
-    transform: scale(1.08);
-    box-shadow: 0 8px 25px rgba(255, 65, 108, 0.6);
+ 
+#botaovoltar {
+    padding: 8px 20px;
+    font-size: 15px;
+    border-radius: 10px;
+    margin-top: 8px;
 }
-
+ 
 ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     list-style: none;
     padding: 0;
-    gap: 15px;
+    gap: 18px;
+}
+
+iframe {
+    width: 90%;
+    max-width: 500px;
+    border-radius: 12px;
 }
