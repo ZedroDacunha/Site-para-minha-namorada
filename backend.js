@@ -1,6 +1,7 @@
 // Defina a data exata do início do namoro: (Ano, Mês, Dia, Hora, Minuto, Segundo)
 // ATENÇÃO: No JavaScript, os meses começam em 0! Janeiro é 0, Fevereiro é 1... e Novembro é 10.
 const dataInicio = new Date(2021, 10, 12, 15, 40, 10);
+let intervaloContador = null;
 
 function atualizarTempo() {
     const agora = new Date();
@@ -47,9 +48,13 @@ function iniciarSurpresa() {
         caixaMensagem.classList.add("mostrar");
     }, 10);
 
-    // 5. Atualiza e inicia o relógio
+    // 5. Atualiza e inicia o relógio (evita empilhar vários
+    // intervalos se o botão for clicado mais de uma vez)
     atualizarTempo();
-    setInterval(atualizarTempo, 1000);
+    if (intervaloContador) {
+        clearInterval(intervaloContador);
+    }
+    intervaloContador = setInterval(atualizarTempo, 1000);
 }
 
 function explodirCoracoes(origemElemento) {
@@ -113,16 +118,22 @@ if (
 }
 const secoesReveal = document.querySelectorAll(".reveal");
 
-const observadorReveal = new IntersectionObserver((entradas) => {
-    entradas.forEach((entrada) => {
-        if (entrada.isIntersecting) {
-            entrada.target.classList.add("visivel");
-            observadorReveal.unobserve(entrada.target);
-        }
-    });
-}, { threshold: 0.2 });
+// Proteção: se o navegador não suportar IntersectionObserver,
+// mostra o conteúdo direto em vez de deixá-lo invisível pra sempre.
+if ("IntersectionObserver" in window) {
+    const observadorReveal = new IntersectionObserver((entradas) => {
+        entradas.forEach((entrada) => {
+            if (entrada.isIntersecting) {
+                entrada.target.classList.add("visivel");
+                observadorReveal.unobserve(entrada.target);
+            }
+        });
+    }, { threshold: 0.2 });
 
-secoesReveal.forEach((secao) => observadorReveal.observe(secao));
+    secoesReveal.forEach((secao) => observadorReveal.observe(secao));
+} else {
+    secoesReveal.forEach((secao) => secao.classList.add("visivel"));
+}
 
 // Transição sutil de cor do fundo conforme rola a página:
 // começa no vinho escuro original e vai clareando levemente
@@ -141,7 +152,21 @@ function atualizarCorFundo() {
     document.documentElement.style.setProperty("--cor-fundo-scroll", `rgb(${r}, ${g}, ${b})`);
 }
 
-window.addEventListener("scroll", atualizarCorFundo);
+// Em vez de rodar a cada evento de scroll bruto (que em
+// touchpads de notebook pode disparar dezenas de vezes por
+// segundo), agenda a atualização pro próximo frame de tela.
+// Isso evita sobrecarregar a thread principal e cortar o
+// frame rate das animações (o que aparece como flicker).
+let agendadoCorFundo = false;
+window.addEventListener("scroll", () => {
+    if (!agendadoCorFundo) {
+        agendadoCorFundo = true;
+        requestAnimationFrame(() => {
+            atualizarCorFundo();
+            agendadoCorFundo = false;
+        });
+    }
+});
 atualizarCorFundo();
 
 // Parallax leve nas fotos da galeria: cada foto se desloca
@@ -164,8 +189,18 @@ function atualizarParallax() {
 }
 
 if (!semAnimacoes && fotosParallax.length > 0) {
-    window.addEventListener("scroll", atualizarParallax);
-    window.addEventListener("resize", atualizarParallax);
+    let agendadoParallax = false;
+    const agendarParallax = () => {
+        if (!agendadoParallax) {
+            agendadoParallax = true;
+            requestAnimationFrame(() => {
+                atualizarParallax();
+                agendadoParallax = false;
+            });
+        }
+    };
+    window.addEventListener("scroll", agendarParallax);
+    window.addEventListener("resize", agendarParallax);
     atualizarParallax();
 }
 

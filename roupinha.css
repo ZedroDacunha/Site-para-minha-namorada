@@ -125,6 +125,13 @@ a {
     color: var(--vermelho);
     opacity: 0;
     animation: subir-coracao var(--duration, 16s) ease-in var(--delay, 0s) infinite;
+    /* Evita flicker em GPUs mais fracas: cria uma camada de
+       composição própria e estável pra esse elemento, em vez
+       de deixar o navegador decidir (e às vezes repintar) a
+       cada frame. */
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 @keyframes subir-coracao {
@@ -283,6 +290,8 @@ a {
     pointer-events: none;
     transform: translate(-50%, 0);
     animation: subir-confete var(--duracao, 1.2s) ease-out forwards;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
 }
 
 @keyframes subir-confete {
@@ -308,6 +317,8 @@ a {
     pointer-events: none;
     transform: translate(-50%, -50%);
     animation: sumir-rastro 0.8s ease-out forwards;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
 }
 
 @keyframes sumir-rastro {
